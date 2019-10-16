@@ -153,6 +153,7 @@ testpath==0.4.2
 tornado==6.0.2
 traitlets==4.3.2
 typing-extensions==3.7.4
+tensorflow==https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.0.0-cp27-none-linux_x86_64.whl
 ubuntu-drivers-common==0.0.0
 ufw==0.36
 unattended-upgrades==0.1
