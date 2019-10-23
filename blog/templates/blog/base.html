@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'blog/main.css' %}">
     {% if title %}
-      <title>BLOG - {{ title }}</title>
+      <title>P1R4T3STATION - {{ title }}</title>
     {% else %}
-      <title>BLOG</title>
+      <title>P1R4T3STATION</title>
     {% endif %}
   </head>
   <body>
@@ -28,8 +28,8 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
+              <i><a class="nav-item nav-link" href="{% url 'profile' %}">@{{ user.username }}</a></i>
                 <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-                <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
@@ -56,10 +56,10 @@
         <div class="col-md-4">
           <div class="content-section">
             <h3>Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
+            <p class='text-muted'>Explore smth new today!
+              <ul class="list-group article-metadata">
+                <li class="list-group-item list-group-item-light"><a class="author_title" href="{% url 'blog-home' %}">Latest Posts</a></li>
+                <li class="list-group-item list-group-item-light"><a class="author_title" href="">Typeracer Links</a></li>
                 <li class="list-group-item list-group-item-light">Calendars</li>
                 <li class="list-group-item list-group-item-light">etc</li>
               </ul>

@@ -4,7 +4,7 @@ from .models import Post
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-
+#blog
 def home(request):
     content = {
         'posts': Post.objects.all()
@@ -16,6 +16,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'
     context_object_name = 'posts'
+    ordering = ['-date_posted']
     paginate_by = 5
 
 class UserPostListView(ListView):
@@ -65,6 +66,19 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author: #checking if it's trully the same author who has created the post
             return True
         return False
-
+#about
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+#typeracer
+def typeracer(request):
+    return render(request, 'typeracer/typeracer.html')
+
+class TyperacerCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author: #checking if it's trully the same author who has created the post
+            return True
+        return False
