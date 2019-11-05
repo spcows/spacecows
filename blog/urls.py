@@ -1,6 +1,7 @@
 from django.urls import path
+from django.conf.urls import include, url
 from . import views
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, TyperacerCreateView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView
 
 urlpatterns = [
     #Blog section
@@ -11,7 +12,5 @@ urlpatterns = [
     path("post/<int:pk>/update/", PostUpdateView.as_view(), name='post-update'),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name='post-delete'),
     path("about/", views.about, name="blog-about"),
-    #Typeracer section
-    path("typeracer/", views.typeracer, name='typeracer'),
-    path("typeracer/link/new/", TyperacerCreateView.as_view(), name='link-create'),
+    path("<category>/", views.blog_category, name="blog_category"),
 ]
