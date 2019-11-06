@@ -4,7 +4,7 @@
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+        <a class="mr-2 author_title" href="{% url 'user-posts' object.author.username %}">@{{ object.author }}</a>
         <small class="text-muted">{{ object.date_posted|date:"N d, Y" }}</small>
 
         <div>
@@ -26,7 +26,9 @@
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ object.title }}</h2>
+
+      <img class="img-fluid" id="rcorners3" src="{{ object.image.url }}" alt="none">
+      <h2 class="article-title text-center">{{ object.title }}</h2>
       <p class="article-content">{{ object.content }}</p>
     </div>
   </article>

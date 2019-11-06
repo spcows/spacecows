@@ -9,6 +9,8 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     categories = models.ManyToManyField('Category', related_name='posts')
+    image = models.ImageField(upload_to='images', default="images/None/no-img.jpg")
+
 
 
     def __str__(self):

@@ -13,17 +13,22 @@ def home(request):
     return render(request, 'blog/home.html', content)
 
 def blog_category(request, category):
-    posts = Post.objects.filter(
-        categories__name__contains=category
-    ).order_by(
-        '-created_on'
-    )
+    posts = Post.objects.filter(categories__name__contains=category).order_by('-date_posted')
     content = {
         'category': category,
         'posts': posts
     }
-    return render(request, 'blog/blog_category.html')
+    return render(request, 'blog/blog_category.html', content) #<--(didn't add content block) bug found 05.11.19
 
+def upload_pic(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            m = ExampleModel.objects.get(pk=course_id)
+            m.model_pic = form.cleaned_data['image']
+            m.save()
+            return HttpResponse('image upload success')
+    return HttpResponseForbidden('allowed only via POST')
 
 class PostListView(ListView):
     model = Post
@@ -49,7 +54,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
