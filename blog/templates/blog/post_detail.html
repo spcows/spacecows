@@ -2,34 +2,57 @@
 {% block content %}
   <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
-    <div class="media-body">
-      <div class="article-metadata">
-        <a class="mr-2 author_title" href="{% url 'user-posts' object.author.username %}">@{{ object.author }}</a>
-        <small class="text-muted">{{ object.date_posted|date:"N d, Y" }}</small>
+    <div class="article-metadata">
+      <a class="mr-2 author_title" href="{% url 'user-posts' object.author.username %}">@{{ object.author }}</a>
+      <small class="text-muted">{{ object.date_posted|date:"N d, Y" }}</small>
 
-        <div>
-          <!-- category section -->
-          <small class="text-muted">
-            Categories:&nbsp;
-            {% for category in post.categories.all %}
-            <a href="{% url 'blog_category' category.name %}">
-              {{ category.name }}
-            </a>&nbsp;
-            {% endfor %}
-          </small>
-        </div>
-
-        {% if object.author == user %}
-          <div>
-            <a class='btn btn-secondary btn-sm mt-1 mb-1' href="{% url 'post-update' object.id %}">Update</a>
-            <a class='btn btn-danger btn-sm mt-1 mb-1' href="{% url 'post-delete' object.id %}">Delete</a>
-          </div>
-        {% endif %}
+      <div>
+        <!-- category section -->
+        <small class="text-muted">
+          Categories:&nbsp;
+          {% for category in post.categories.all %}
+          <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+          </a>&nbsp;
+          {% endfor %}
+        </small>
       </div>
 
+      {% if object.author == user %}
+        <div>
+          <a class='btn btn-secondary btn-sm mt-1 mb-1' href="{% url 'post-update' object.slug %}">Update</a>
+          <a class='btn btn-danger btn-sm mt-1 mb-1' href="{% url 'post-delete' object.slug %}">Delete</a>
+        </div>
+      {% endif %}
+    </div>
+  </article>
+  <article class="media content-section">
+    <div class="media-body">
       <img class="img-fluid center" id="rcorners3" src="{{ object.image.url }}" alt="none">
       <h2 class="article-title text-center">{{ object.title }}</h2>
       <p class="article-content">{{ object.content }}</p>
     </div>
   </article>
+  <article class="media content-section">
+
+       <ul>
+       {% for comment in post.comments.all %}
+        <p>
+          <b>@{{ comment.author }}</b>
+          <small>{{ comment.created_date }} </small>
+        </p>
+        <p>    {{ comment.text }}</p>
+        <hr>
+        {% if comment.replies.all %}
+        <ul>
+          {% for reply in comment.replies.all %}
+            <p>{{ reply.text }}</p>
+            <hr>
+          {% endfor %}
+         </ul>
+         {% endif %}
+        {% endfor %}
+       <ul>
+
+    </article>
 {% endblock content %}
